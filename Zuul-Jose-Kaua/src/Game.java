@@ -158,6 +158,7 @@ public class Game
 
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
+        currentRoom = nextRoom;
         
            /* System.out.println("Você está " + currentRoom.getDescription());
             System.out.print("Saída(s): ");
