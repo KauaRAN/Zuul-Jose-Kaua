@@ -57,19 +57,35 @@ public class Room
 
     public Room getExit(String direction)
     {
-        if(direction.equals("north")){
+        if(direction.equals("norte")){
             return northExit;
         }
-        if(direction.equals("east")){
+        if(direction.equals("leste")){
             return eastExit;
         }
-        if(direction.equals("south")){
+        if(direction.equals("sul")){
             return southExit;
         }
-        if(direction.equals("west")){
+        if(direction.equals("oeste")){
             return westExit;
         }
         return null;
+    }
+
+    public void getExitString(){
+        System.out.print("Saídas: ");
+        if(getExit("norte") != null){
+            System.out.print("norte ");
+        }
+        if(getExit("sul") != null){
+            System.out.print("sul ");
+        }
+        if(getExit("leste") != null){
+            System.out.print("leste ");
+        }
+        if(getExit("oeste") != null){
+            System.out.print("oeste ");
+        }
     }
             
 

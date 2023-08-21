@@ -157,25 +157,8 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("norte")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if(direction.equals("leste")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if(direction.equals("sul")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if(direction.equals("oeste")) {
-            nextRoom = currentRoom.westExit;
-        }
-
-        if (nextRoom == null) {
-            System.out.println("Não há saída");
-        }
-        else {
-            currentRoom = nextRoom;
+        Room nextRoom = currentRoom.getExit(direction);
+        
            /* System.out.println("Você está " + currentRoom.getDescription());
             System.out.print("Saída(s): ");
             if(currentRoom.northExit != null) {
@@ -192,7 +175,6 @@ public class Game
             }
             System.out.println();*/
             printLocationInfo();
-        }
     }
 
     /*
@@ -200,19 +182,7 @@ public class Game
     * */
     private void printLocationInfo() {
         System.out.println("Você está " + currentRoom.getDescription());
-        System.out.print("Saídas: ");
-        if (currentRoom.northExit != null) {
-            System.out.print("norte ");
-        }
-        if (currentRoom.eastExit != null) {
-            System.out.print("leste ");
-        }
-        if (currentRoom.southExit != null) {
-            System.out.print("sul ");
-        }
-        if (currentRoom.westExit != null) {
-            System.out.print("oeste ");
-        }
+        currentRoom.getExitString();
     }
     /** 
      * Método que realiza a saída e finalização do jogo.
