@@ -55,6 +55,24 @@ public class Room
         }
     }
 
+    public Room getExit(String direction)
+    {
+        if(direction.equals("north")){
+            return northExit;
+        }
+        if(direction.equals("east")){
+            return eastExit;
+        }
+        if(direction.equals("south")){
+            return southExit;
+        }
+        if(direction.equals("west")){
+            return westExit;
+        }
+        return null;
+    }
+            
+
     /**
      * @return The description of the room.
      */
