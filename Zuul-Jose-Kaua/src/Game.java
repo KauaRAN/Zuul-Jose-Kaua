@@ -26,7 +26,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGas,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes;
+        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes;
       
         // create the rooms
         casa = new Room("na sua casa, sozinho, precisa tomar uma atitude.");
@@ -37,7 +37,7 @@ public class Game
         hospital = new Room("no hospital da cidade. Agora está abandonado, já foi um local de cura e esperança.\nVocê avista vultos de pessoas dentro da sombria instalação, parecem cambalear e andar sem direção determinada, como se não tivessem controle dos próprios movimentos.");
         restaurante = new Room("no restaurante local mais requisitado, talvez por buscar comida para matar a fome, ou apenas lembrar do vívido cheiro de comidas exóticas preparadas pelos chefes.\nPorém, toda a comida está estragada, além do pútrido cheiro e som de passos tão destoados e divagantes quanto seus movimentos assustadores.");
         supermercado = new Room("no supermercado. Em busca de matimentos, você coleta comida enlatada e bebidas ainda conservadas e coloca tudo em sua mochila.\nNos vidros que jazem outras instalações do local, há silhuetas humanas arranhando e se forçando sem controle...Não parece que são clientes e, se forem, não parecem muito satisfeitos...");
-        postoDeGas = new Room("no posto de gasolina da rodovia. Toda a gasolina parece ter sido levada, além de carros que sofrem com a lamentável solidão do abandono.");
+        postoDeGasolina = new Room("no posto de gasolina da rodovia. Toda a gasolina parece ter sido levada, além de carros que sofrem com a lamentável solidão do abandono.");
         lojaDeArmas = new Room("em uma loja de armas que não possui mais seu gerente. Após perceber que há algo errado, você decide priorizar sua segurança, buscando algo para que possa se defender.");
         aeroporto = new Room("no aeroporto após uma longa caminhada. Os voos parecem ter sido cancelados, o que não impediu de haver pessoas dando passos errantes de um lado a outro,\nsem destino, sem expressão em seus rostos, sem preocupação com o alerta, sem vida em seus olhos...");
         baseMilitar = new Room("em uma base militar fortemente protegida. Ao alto dos muros, soldados parecem se alertar com sua presença.\nLogo após, um soldado diz: 'Este é um lugar proibido para civis! O abrigo militar ao leste está sob jurisdição. Busque um abrigo alternativo.'");
@@ -46,20 +46,49 @@ public class Game
         campoDeSobreviventes = new Room("no campo de sobreviventes. As pessoas te recepcionam, lhe dão assistência, lhe tratam como realmente merece, porém, sobretudo, parecem aliviadas por seu novo visitante não ser um errante misterioso ou um soldado ranzinza.\nSão gente como você, em busca de segurança, de conforto, e de respostas. Aqui sua aventura acaba. (digite 'sair')");
 
         // initialise room exits
-        casa.setExits(null, null, parque, casaDoVizinho);
-        casaDoVizinho.setExits(null, casa, null, null);
-        parque.setExits(casa, igreja, postoDeGas, null);
-        igreja.setExits(null, escola, hospital, parque);
-        escola.setExits(null, null, restaurante, igreja);
-        hospital.setExits(igreja, restaurante, lojaDeArmas, null);
-        restaurante.setExits(escola, null, baseMilitar, hospital);
-        supermercado.setExits(null, postoDeGas, null, null);
-        postoDeGas.setExits(parque, null, aeroporto, supermercado);
-        lojaDeArmas.setExits(hospital, baseMilitar, null, aeroporto);
-        aeroporto.setExits(postoDeGas, lojaDeArmas, null, null);
-        baseMilitar.setExits(restaurante, abrigoMilitar, foraDaCidade, null);
-        foraDaCidade.setExits(baseMilitar, null, campoDeSobreviventes, null);
-        campoDeSobreviventes.setExits(null, null, null, null);
+        casa.setExit("sul", parque);
+        casa.setExit("oeste", casaDoVizinho);
+
+        casaDoVizinho.setExit("leste", casa);
+
+        parque.setExit("norte", casa);
+        parque.setExit("leste", igreja);
+        parque.setExit("sul", postoDeGasolina);
+
+        igreja.setExit("leste", escola);
+        igreja.setExit("sul", hospital);
+        igreja.setExit("oeste", parque);
+
+        escola.setExit("sul", restaurante);
+        escola.setExit("oeste", igreja);
+
+        hospital.setExit("norte", igreja);
+        hospital.setExit("leste", restaurante);
+        hospital.setExit("sul", lojaDeArmas);
+
+        restaurante.setExit("norte", escola);
+        restaurante.setExit("sul", baseMilitar);
+        restaurante.setExit("oeste", hospital);
+
+        supermercado.setExit("leste", postoDeGasolina);
+
+        postoDeGasolina.setExit("norte", parque);
+        postoDeGasolina.setExit("sul", aeroporto);
+        postoDeGasolina.setExit("oeste", supermercado);
+
+        lojaDeArmas.setExit("norte", hospital);
+        lojaDeArmas.setExit("leste", baseMilitar);
+        lojaDeArmas.setExit("oeste", aeroporto);
+
+        aeroporto.setExit("norte", postoDeGasolina);
+        aeroporto.setExit("leste", lojaDeArmas);
+
+        baseMilitar.setExit("norte", restaurante);
+        baseMilitar.setExit("leste", abrigoMilitar);
+        baseMilitar.setExit("sul", foraDaCidade);
+
+        foraDaCidade.setExit("norte", baseMilitar);
+        foraDaCidade.setExit("sul", campoDeSobreviventes);
 
         currentRoom = casa;
     }
