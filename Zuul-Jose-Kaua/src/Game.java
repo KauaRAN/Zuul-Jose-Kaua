@@ -131,7 +131,7 @@ public class Game
             System.out.print("oeste ");
         }*/
         System.out.println();
-        printLocationInfo();
+        System.out.println(currentRoom.getLongerDescription());
     }
 
     /*
@@ -204,16 +204,9 @@ public class Game
                 System.out.print("oeste ");
             }
             System.out.println();*/
-            printLocationInfo();
+            System.out.println(currentRoom.getLongerDescription());
     }
 
-    /*
-    * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
-    * */
-    private void printLocationInfo() {
-        System.out.println("Você está " + currentRoom.getDescription());
-        currentRoom.getExitString();
-    }
     /** 
      * Método que realiza a saída e finalização do jogo.
      */
