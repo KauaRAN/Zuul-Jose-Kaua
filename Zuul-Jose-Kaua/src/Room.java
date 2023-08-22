@@ -51,10 +51,10 @@ public class Room
     }
 
     public String getExitString(){
-        String returnString = "saidas: ";
+        String returnString = "Saidas:";
         Set<String> keys = exits.keySet();
         for(String exit : keys){
-            returnString += ", " + exit;
+            returnString += " " + exit;
         }
         return returnString;
     }
