@@ -7,7 +7,7 @@
  * @version 2023.08.17
  */
 
-public class Game 
+public class Game
 {
     private Parser parser;
     private Room currentRoom;
@@ -15,7 +15,7 @@ public class Game
     /**
      * Cria o jogo e inicializa funcionalidades.
      */
-    public Game() 
+    public Game()
     {
         createRooms();
         parser = new Parser();
@@ -26,8 +26,8 @@ public class Game
      */
     private void createRooms()
     {
-        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes;
-      
+        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes,acimaHospital,alaMedica;
+
         // create the rooms
         casa = new Room("na sua casa, sozinho, precisa tomar uma atitude.");
         casaDoVizinho = new Room("na casa do vizinho, parece vazia...Parece ter saído há um tempo.");
@@ -44,6 +44,8 @@ public class Game
         abrigoMilitar = new Room("no abrigo militar, contrariando as recomendações dos soldados. Ao chegar lá, você ouve sirenes e um movimento grande em sua direção. Luzes permeiam seus olhos, passos estremecem seus ouvidos, um grupo está a sua frente...\nNão estão receptivos, não estão planejando deixá-lo ir, não planejam dar-lhe nem mais um pingo de liberdade. Aqui sua aventura acaba, com um ousado desejo de contrariar as regras. (digite sair)");
         foraDaCidade = new Room("fora dos limites da cidade. Seguindo os conselhos dos militares, você segue as ruas disformes em busca de abrigo e um mínimo resquício de presença humana agradável. Chegando ao limite do cansaço, você avista luzes em uma colina adiante.\nNão parece ser uma base militar, nem algo fortemente protegido, mas o bastante para proteger as pessoas que buscam salvar a si mesmas e a seus entes queridos.");
         campoDeSobreviventes = new Room("no campo de sobreviventes. As pessoas te recepcionam, lhe dão assistência, lhe tratam como realmente merece, porém, sobretudo, parecem aliviadas por seu novo visitante não ser um errante misterioso ou um soldado ranzinza.\nSão gente como você, em busca de segurança, de conforto, e de respostas. Aqui sua aventura acaba. (digite 'sair')");
+        acimaHospital = new Room("Primeiro andar do hospital");
+        alaMedica = new Room("Ala do hospital");
 
         // initialise room exits
         casa.setExit("sul", parque);
@@ -65,6 +67,10 @@ public class Game
         hospital.setExit("norte", igreja);
         hospital.setExit("leste", restaurante);
         hospital.setExit("sul", lojaDeArmas);
+        hospital.setExit("acima",acimaHospital);
+        acimaHospital.setExit("abaixo",hospital);
+        acimaHospital.setExit("norte",alaMedica);
+        alaMedica.setExit("sul",acimaHospital);
 
         restaurante.setExit("norte", escola);
         restaurante.setExit("sul", baseMilitar);
@@ -94,10 +100,10 @@ public class Game
     }
 
 
-    public void play() 
-    {            
+    public void play()
+    {
         printWelcome();
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -135,10 +141,10 @@ public class Game
     }
 
     /*
-    *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'.
-    */
+     *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'.
+     */
 
-    private boolean processCommand(Command command) 
+    private boolean processCommand(Command command)
     {
         boolean wantToQuit = false;
 
@@ -162,7 +168,7 @@ public class Game
     }
 
     //Ajuda para o jogador.
-    private void printHelp() 
+    private void printHelp()
     {
         System.out.println("Você acorda subitamente de seu sono, ouvindo apenas o som do silêncio...Um alerta foi dado: 'A todos os vivos, procurem abrigo!'");
         System.out.println("Seu local incial é sua casa.");
@@ -172,7 +178,7 @@ public class Game
         System.out.println("Para 'ir' deve ser digitada em seguida a direção disponível.");
     }
 
-    /** 
+    /**
      * Nesta parte está o método que dita o avanço do jogo, de acordo com a direção escolhida.
      */
     private void goRoom(Command command)
@@ -204,21 +210,21 @@ public class Game
                 System.out.print("oeste ");
             }
             System.out.println();*/
-            System.out.println(currentRoom.getLongerDescription());
+        System.out.println(currentRoom.getLongerDescription());
     }
 
-        /*
-    * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
-    * */
+    /*
+     * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
+     * */
     private void printLocationInfo() {
         System.out.println("Você está " + currentRoom.getDescription());
         currentRoom.getExitString();
     }
-    
-    /** 
+
+    /**
      * Método que realiza a saída e finalização do jogo.
      */
-    private boolean quit(Command command) 
+    private boolean quit(Command command)
     {
         if(command.hasSecondWord()) {
             System.out.println("Sair de?");
