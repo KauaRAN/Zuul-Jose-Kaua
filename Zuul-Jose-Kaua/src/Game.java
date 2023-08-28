@@ -44,10 +44,11 @@ public class Game
         abrigoMilitar = new Room("no abrigo militar, contrariando as recomendações dos soldados. Ao chegar lá, você ouve sirenes e um movimento grande em sua direção. Luzes permeiam seus olhos, passos estremecem seus ouvidos, um grupo está a sua frente...\nNão estão receptivos, não estão planejando deixá-lo ir, não planejam dar-lhe nem mais um pingo de liberdade. Aqui sua aventura acaba, com um ousado desejo de contrariar as regras. (digite sair)");
         foraDaCidade = new Room("fora dos limites da cidade. Seguindo os conselhos dos militares, você segue as ruas disformes em busca de abrigo e um mínimo resquício de presença humana agradável. Chegando ao limite do cansaço, você avista luzes em uma colina adiante.\nNão parece ser uma base militar, nem algo fortemente protegido, mas o bastante para proteger as pessoas que buscam salvar a si mesmas e a seus entes queridos.");
         campoDeSobreviventes = new Room("no campo de sobreviventes. As pessoas te recepcionam, lhe dão assistência, lhe tratam como realmente merece, porém, sobretudo, parecem aliviadas por seu novo visitante não ser um errante misterioso ou um soldado ranzinza.\nSão gente como você, em busca de segurança, de conforto, e de respostas. Aqui sua aventura acaba. (digite 'sair')");
-        acimaHospital = new Room("Primeiro andar do hospital");
-        alaMedica = new Room("Ala do hospital");
-
-        // initialise room exits
+        acimaHospital = new Room("no primeiro andar do hospital. Está decrépito, macas por toda parte e aparelhos médicos espalhados.");
+        alaMedica = new Room("na ala médica onde eram realizadas cirurgias, há o que parecem ser pessoas imóveis presas em macas, um aviso escrito na parede diz: 'Cuidado, pacientes agressivos'");
+        deposito = new Room("no depósito de utensílios utilizados para manter o hospital em funcionamento, nada que possa ser utilizado por civis.");
+        
+        // Inicia as saídas e destinos
         casa.setExit("sul", parque);
         casa.setExit("oeste", casaDoVizinho);
 
@@ -68,9 +69,11 @@ public class Game
         hospital.setExit("leste", restaurante);
         hospital.setExit("sul", lojaDeArmas);
         hospital.setExit("acima",acimaHospital);
-        acimaHospital.setExit("abaixo",hospital);
         acimaHospital.setExit("norte",alaMedica);
+        acimaHospital.setExit("leste",deposito);
+        acimaHospital.setExit("abaixo",hospital);
         alaMedica.setExit("sul",acimaHospital);
+        deposito.setExit("oeste",acimaHospital);
 
         restaurante.setExit("norte", escola);
         restaurante.setExit("sul", baseMilitar);
