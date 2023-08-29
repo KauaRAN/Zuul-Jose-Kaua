@@ -26,7 +26,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes,acimaHospital,alaMedica;
+        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes,acimaHospital,alaMedica,deposito;
 
         // create the rooms
         casa = new Room("na sua casa, sozinho, precisa tomar uma atitude.");
@@ -47,8 +47,8 @@ public class Game
         acimaHospital = new Room("no primeiro andar do hospital. Está decrépito, macas por toda parte e aparelhos médicos espalhados.");
         alaMedica = new Room("na ala médica onde eram realizadas cirurgias, há o que parecem ser pessoas imóveis presas em macas, um aviso escrito na parede diz: 'Cuidado, pacientes agressivos'");
         deposito = new Room("no depósito de utensílios utilizados para manter o hospital em funcionamento, nada que possa ser utilizado por civis.");
-        
-        // Inicia as saídas e destinos
+
+        // initialise room exits
         casa.setExit("sul", parque);
         casa.setExit("oeste", casaDoVizinho);
 
@@ -125,20 +125,6 @@ public class Game
         System.out.println("O Despertar é um jogo que irá testar seu instinto de sobrevivência.");
         System.out.println("Digite 'ajuda' para esclarecimentos.");
         System.out.println();
-        /*System.out.println("Você está " + currentRoom.getDescription());
-        System.out.print("Saída(s): ");*/
-        /*if(currentRoom.northExit != null) {
-            System.out.print("norte ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("leste ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("sul ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("oeste ");
-        }*/
         System.out.println();
         System.out.println(currentRoom.getLongerDescription());
     }
@@ -166,6 +152,9 @@ public class Game
         else if (commandWord.equals("sair")) {
             wantToQuit = quit(command);
         }
+        else if(commandWord.equals("ver")) {
+            ver();
+        }
 
         return wantToQuit;
     }
@@ -177,7 +166,7 @@ public class Game
         System.out.println("Seu local incial é sua casa.");
         System.out.println();
         System.out.println("Os comandos são:");
-        System.out.println("   ir sair ajuda");
+        parser.showCommands();
         System.out.println("Para 'ir' deve ser digitada em seguida a direção disponível.");
     }
 
@@ -197,22 +186,6 @@ public class Game
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
         currentRoom = nextRoom;
-        
-           /* System.out.println("Você está " + currentRoom.getDescription());
-            System.out.print("Saída(s): ");
-            if(currentRoom.northExit != null) {
-                System.out.print("norte ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("leste ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("sul ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("oeste ");
-            }
-            System.out.println();*/
         System.out.println(currentRoom.getLongerDescription());
     }
 
@@ -236,5 +209,9 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    private void ver()
+    {
+        System.out.println(currentRoom.getLongerDescription());
     }
 }
