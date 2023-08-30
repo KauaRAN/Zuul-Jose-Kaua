@@ -152,8 +152,11 @@ public class Game
         else if (commandWord.equals("sair")) {
             wantToQuit = quit(command);
         }
-        else if(commandWord.equals("ver")) {
-            ver();
+        else if(commandWord.equals("olhar")) {
+            olhar();
+        }
+        else if(commandWord.equals("comer")) {
+            comer();
         }
 
         return wantToQuit;
@@ -207,11 +210,14 @@ public class Game
             return false;
         }
         else {
-            return true;  // signal that we want to quit
+            return true; 
         }
     }
-    private void ver()
+    private void olhar()
     {
         System.out.println(currentRoom.getLongerDescription());
+    }
+    private void comer(){
+        System.out.println("Você comeu e não está mais com fome.");
     }
 }
