@@ -169,7 +169,7 @@ public class Game
         System.out.println("Seu local incial é sua casa.");
         System.out.println();
         System.out.println("Os comandos são:");
-        parser.showCommands();
+        parser.getCommandList();
         System.out.println("Para 'ir' deve ser digitada em seguida a direção disponível.");
     }
 
