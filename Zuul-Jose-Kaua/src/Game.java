@@ -196,8 +196,7 @@ public class Game
      * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
      * */
     private void printLocationInfo() {
-        System.out.println("Você está " + currentRoom.getDescription());
-        currentRoom.getExitString();
+        System.out.println(currentRoom.getLongerDescription());
     }
 
     /**
