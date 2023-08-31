@@ -130,7 +130,7 @@ public class Game
     }
 
     /*
-     *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'.
+     *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'. Agora também o comer e olhar.
      */
 
     private boolean processCommand(Command command)
@@ -179,7 +179,6 @@ public class Game
     private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
             System.out.println("Ir aonde?");
             return;
         }
@@ -196,7 +195,8 @@ public class Game
      * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
      * */
     private void printLocationInfo() {
-        System.out.println(currentRoom.getLongerDescription());
+        System.out.println("Você está " + currentRoom.getDescription());
+        currentRoom.getExitString();
     }
 
     /**
