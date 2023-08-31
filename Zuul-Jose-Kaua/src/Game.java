@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  *  Esta é a interface de nosso jogo, baseada no projeto zuu_bad. Fizemos algumas alterações,
  *  como adicionar novas salas e traduzir o nome dos elementos de inglês para português, de modo que fique mais prático trabalhar.
@@ -7,27 +9,26 @@
  * @version 2023.08.17
  */
 
-public class Game
-{
+public class Game {
     private Parser parser;
     private Room currentRoom;
     private Room backRoom;
+    private List<Item> inventario;
 
     /**
      * Cria o jogo e inicializa funcionalidades.
      */
-    public Game()
-    {
+    public Game() {
         createRooms();
         parser = new Parser();
+        inventario = new ArrayList<>();
     }
 
     /**
      * Método onde alteramos as salas para se adequar ao nosso jogo.
      */
-    private void createRooms()
-    {
-        Room casa,casaDoVizinho,parque,igreja,escola,hospital,restaurante,supermercado,postoDeGasolina,lojaDeArmas, aeroporto, baseMilitar,abrigoMilitar, foraDaCidade,campoDeSobreviventes,acimaHospital,alaMedica,deposito;
+    private void createRooms() {
+        Room casa, casaDoVizinho, parque, igreja, escola, hospital, restaurante, supermercado, postoDeGasolina, lojaDeArmas, aeroporto, baseMilitar, abrigoMilitar, foraDaCidade, campoDeSobreviventes, acimaHospital, alaMedica, deposito;
 
         // create the rooms
         casa = new Room("na sua casa, sozinho, precisa tomar uma atitude.");
@@ -69,13 +70,13 @@ public class Game
         hospital.setExit("norte", igreja);
         hospital.setExit("leste", restaurante);
         hospital.setExit("sul", lojaDeArmas);
-        hospital.setExit("acima",acimaHospital);
-        acimaHospital.setExit("norte",alaMedica);
-        acimaHospital.setExit("leste",deposito);
-        acimaHospital.setExit("abaixo",hospital);
-        alaMedica.setExit("sul",acimaHospital);
-        deposito.setExit("oeste",acimaHospital);
-        Item chave = new Item("Uma pequena chave",34.0);
+        hospital.setExit("acima", acimaHospital);
+        acimaHospital.setExit("norte", alaMedica);
+        acimaHospital.setExit("leste", deposito);
+        acimaHospital.setExit("abaixo", hospital);
+        alaMedica.setExit("sul", acimaHospital);
+        deposito.setExit("oeste", acimaHospital);
+        Item chave = new Item("Uma pequena chave", 34.0);
         deposito.setItem(chave);
 
         restaurante.setExit("norte", escola);
@@ -106,12 +107,11 @@ public class Game
     }
 
 
-    public void play()
-    {
+    public void play() {
         printWelcome();
 
         boolean finished = false;
-        while (! finished) {
+        while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
@@ -121,8 +121,7 @@ public class Game
     /**
      * Printa as mensagens iniciais para o jogador
      */
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Bem vindo(a) ao nosso jogo O Despertar!");
         System.out.println("O Despertar é um jogo que irá testar seu instinto de sobrevivência.");
@@ -136,11 +135,10 @@ public class Game
      *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'.
      */
 
-    private boolean processCommand(Command command)
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
+        if (command.isUnknown()) {
             System.out.println("Não entendi o que você quis dizer...");
             return false;
         }
@@ -148,20 +146,15 @@ public class Game
         String commandWord = command.getCommandWord();
         if (commandWord.equals("ajuda")) {
             printHelp();
-        }
-        else if (commandWord.equals("ir")) {
+        } else if (commandWord.equals("ir")) {
             goRoom(command);
-        }
-        else if (commandWord.equals("sair")) {
+        } else if (commandWord.equals("sair")) {
             wantToQuit = quit(command);
-        }
-        else if(commandWord.equals("olhar")) {
+        } else if (commandWord.equals("olhar")) {
             olhar();
-        }
-        else if(commandWord.equals("voltar")){
+        } else if (commandWord.equals("voltar")) {
             back();
-        }
-        else if(commandWord.equals("comer")){
+        } else if (commandWord.equals("comer")) {
             comer();
         }
 
@@ -169,8 +162,7 @@ public class Game
     }
 
     //Ajuda para o jogador.
-    private void printHelp()
-    {
+    private void printHelp() {
         System.out.println("Você acorda subitamente de seu sono, ouvindo apenas o som do silêncio...Um alerta foi dado: 'A todos os vivos, procurem abrigo!'");
         System.out.println("Seu local incial é sua casa.");
         System.out.println();
@@ -182,9 +174,8 @@ public class Game
     /**
      * Nesta parte está o método que dita o avanço do jogo, de acordo com a direção escolhida.
      */
-    private void goRoom(Command command)
-    {
-        if(!command.hasSecondWord()) {
+    private void goRoom(Command command) {
+        if (!command.hasSecondWord()) {
             System.out.println("Ir aonde?");
             return;
         }
@@ -193,7 +184,8 @@ public class Game
         backRoom = currentRoom;
         Room nextRoom = currentRoom.getExit(direction);
         currentRoom = nextRoom;
-        printLocationInfo();;
+        printLocationInfo();
+        ;
     }
 
     /*
@@ -212,18 +204,16 @@ public class Game
     /**
      * Método que realiza a saída e finalização do jogo.
      */
-    private boolean quit(Command command)
-    {
-        if(command.hasSecondWord()) {
+    private boolean quit(Command command) {
+        if (command.hasSecondWord()) {
             System.out.println("Sair de?");
             return false;
-        }
-        else {
-            return true;  // signal that we want to quit
+        } else {
+            return true;
         }
     }
-    private void olhar()
-    {
+
+    private void olhar() {
         System.out.println(currentRoom.getLongerDescription());
     }
 
@@ -236,7 +226,8 @@ public class Game
             System.out.println("Não há sala anterior para voltar.");
         }
     }
-    private void comer(){
+
+    private void comer() {
         System.out.println("Você comeu e não está mais com fome.");
     }
 }
