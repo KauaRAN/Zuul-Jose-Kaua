@@ -2,18 +2,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "World of Zuul" application.
- * "World of Zuul" is a very simple, text based adventure game.
- *
- * A "Room" represents one location in the scenery of the game.  It is
- * connected to other rooms via exits.  The exits are labelled north,
- * east, south, west.  For each direction, the room stores a reference
- * to the neighboring room, or null if there is no exit in that direction.
- *
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * Essa é a classe que representa uma sala/localidade no jogo. Estas localidades são definidas por saídas que dão em outras.
  */
 public class Room
 {
@@ -22,10 +11,7 @@ public class Room
     private Item item;
 
     /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
+     * Construtor para a descrição da sala.
      */
     public Room(String description)
     {
@@ -34,12 +20,7 @@ public class Room
     }
 
     /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
+     * Define as saídas das salas. Os métodos foram mudados para estar de acordo com os conceitos de coesão e acoplamento.
      */
     public void setExit(String direction, Room neighbor)
     {
@@ -62,13 +43,16 @@ public class Room
 
 
     /**
-     * @return The description of the room.
+     * Retorna a descrição da sala.
      */
     public String getDescription()
     {
         return description;
     }
 
+    /**
+    * Métodos para auxiliar o processo para aplicar o item nas salas.
+    */
     public Item getItem() {
         return item;
     }
