@@ -101,7 +101,13 @@ public class Game
 
         currentRoom = casa;
     }
+    
+    public void createItem(){
+        Item arma;
+        arma = new Item("Voce encontrou uma ");
 
+        arma.setItem(1, baseMilitar)
+    }
 
     public void play()
     {
