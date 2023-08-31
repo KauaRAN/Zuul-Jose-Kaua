@@ -51,8 +51,8 @@ public class Room
     }
 
     /**
-    * Métodos para auxiliar o processo para aplicar o item nas salas.
-    */
+     * Métodos para auxiliar o processo para aplicar o item nas salas.
+     */
     public Item getItem() {
         return item;
     }
