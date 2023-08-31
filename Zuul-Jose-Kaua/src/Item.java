@@ -1,26 +1,20 @@
-import java.util.HashMap;
-
 public class Item {
     private  String descricaoItem;
-    public HashMap<Integer, Room> itens;
+    private Double pesoItem;
 
-    public Item(String descricaoItem) 
+    public Item(String descricaoItem, Double pesoItem)
     {
         this.descricaoItem = descricaoItem;
-        itens = new HashMap<>();
-    }
-
-    public void setItem(Integer pesoItem, Room sala) 
-    {
-        itens.put(pesoItem, sala);
-    }
-
-    public HashMap<Integer, Room> getItens() {
-        return itens;
+        this.pesoItem = pesoItem;
     }
 
     public String getDescricaoItem() {
         return descricaoItem;
     }
+
+    public Double getPesoItem() {
+        return pesoItem;
+    }
+
 
 }
