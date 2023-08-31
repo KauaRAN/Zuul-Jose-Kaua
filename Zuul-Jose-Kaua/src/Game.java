@@ -74,6 +74,8 @@ public class Game
         acimaHospital.setExit("abaixo",hospital);
         alaMedica.setExit("sul",acimaHospital);
         deposito.setExit("oeste",acimaHospital);
+        Item chave = new Item("Uma pequena chave",34.0);
+        deposito.setItem(chave);
 
         restaurante.setExit("norte", escola);
         restaurante.setExit("sul", baseMilitar);
@@ -101,13 +103,7 @@ public class Game
 
         currentRoom = casa;
     }
-    
-    public void createItem(){
-        Item arma;
-        arma = new Item("Voce encontrou uma ");
 
-        arma.setItem(1, baseMilitar)
-    }
 
     public void play()
     {
@@ -136,7 +132,7 @@ public class Game
     }
 
     /*
-     *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'. Agora também o comer e olhar.
+     *Método que irá processar os primeiros comandos 'ir', 'sair' e 'ajuda'.
      */
 
     private boolean processCommand(Command command)
@@ -158,11 +154,8 @@ public class Game
         else if (commandWord.equals("sair")) {
             wantToQuit = quit(command);
         }
-        else if(commandWord.equals("olhar")) {
-            olhar();
-        }
-        else if(commandWord.equals("comer")) {
-            comer();
+        else if(commandWord.equals("ver")) {
+            ver();
         }
 
         return wantToQuit;
@@ -175,7 +168,7 @@ public class Game
         System.out.println("Seu local incial é sua casa.");
         System.out.println();
         System.out.println("Os comandos são:");
-        parser.getCommandList();
+        parser.showCommands();
         System.out.println("Para 'ir' deve ser digitada em seguida a direção disponível.");
     }
 
@@ -185,6 +178,7 @@ public class Game
     private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
             System.out.println("Ir aonde?");
             return;
         }
@@ -194,15 +188,20 @@ public class Game
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
         currentRoom = nextRoom;
-        System.out.println(currentRoom.getLongerDescription());
+        printLocationInfo();;
     }
 
     /*
      * Método adicionado conforme orientação, para tornar o programa coeso e evitar repetições desnecessárias.
      * */
     private void printLocationInfo() {
-        System.out.println("Você está " + currentRoom.getDescription());
-        currentRoom.getExitString();
+        System.out.println(currentRoom.getLongerDescription());
+
+        Item itemInRoom = currentRoom.getItem();
+        if (itemInRoom != null) {
+            System.out.println("Aqui há um item: " + itemInRoom.getDescricaoItem());
+
+        }
     }
 
     /**
@@ -215,14 +214,11 @@ public class Game
             return false;
         }
         else {
-            return true; 
+            return true;  // signal that we want to quit
         }
     }
-    private void olhar()
+    private void ver()
     {
         System.out.println(currentRoom.getLongerDescription());
-    }
-    private void comer(){
-        System.out.println("Você comeu e não está mais com fome.");
     }
 }
