@@ -11,6 +11,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room backRoom;
 
     /**
      * Cria o jogo e inicializa funcionalidades.
@@ -154,8 +155,14 @@ public class Game
         else if (commandWord.equals("sair")) {
             wantToQuit = quit(command);
         }
-        else if(commandWord.equals("ver")) {
-            ver();
+        else if(commandWord.equals("olhar")) {
+            olhar();
+        }
+        else if(commandWord.equals("voltar")){
+            back();
+        }
+        else if(commandWord.equals("comer")){
+            comer();
         }
 
         return wantToQuit;
@@ -178,14 +185,12 @@ public class Game
     private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
             System.out.println("Ir aonde?");
             return;
         }
 
         String direction = command.getSecondWord();
-
-        // Try to leave current room.
+        backRoom = currentRoom;
         Room nextRoom = currentRoom.getExit(direction);
         currentRoom = nextRoom;
         printLocationInfo();;
@@ -217,8 +222,21 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    private void ver()
+    private void olhar()
     {
         System.out.println(currentRoom.getLongerDescription());
+    }
+
+    private void back() {
+        if (backRoom != null) {
+            currentRoom = backRoom;
+            backRoom = null; // Reset backRoom after going back
+            printLocationInfo();
+        } else {
+            System.out.println("Não há sala anterior para voltar.");
+        }
+    }
+    private void comer(){
+        System.out.println("Você comeu e não está mais com fome.");
     }
 }
